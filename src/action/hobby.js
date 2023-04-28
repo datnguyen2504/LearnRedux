@@ -21,3 +21,20 @@ export const setActiveHobby = (active) => {
         data: active
     }
 }
+
+export function getDataAPI(active) {
+
+    return async function getDataApiThunk(dispatch, _getstate) {
+        const response = await callApiArticle.getListData(active)
+        dispatch({ type: 'TEST_API', payload: response.data })
+    }
+
+}
+
+export function getDataProduct() {
+    return async function getDataApiThunk(dispatch, _getstate) {
+        const response = await callApiArticle.getListDataProduct()
+        dispatch({ type: 'GET_DATA_PRODUCT', payload: response.data })
+    }
+}
+

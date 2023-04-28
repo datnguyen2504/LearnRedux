@@ -3,7 +3,9 @@
 const initialState = {
     list: [],
     actived: null,
-    testData: null
+    testData: null,
+    dataApi: [],
+    dataProduct: []
 }
 
 const hobbyReducer = (state = initialState, action) => {
@@ -24,7 +26,7 @@ const hobbyReducer = (state = initialState, action) => {
         case 'TEST_API': {
             return {
                 ...state,
-                testData: action.payload
+                dataApi: action.payload
             }
         }
 
@@ -33,6 +35,13 @@ const hobbyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 actived: newActiveID
+            }
+        }
+
+        case 'GET_DATA_PRODUCT': {
+            return {
+                ...state,
+                dataProduct: action.payload
             }
         }
 

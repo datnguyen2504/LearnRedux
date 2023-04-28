@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import HobbyList from "../component/HobbyList";
-import { addNewHobby, fetchTodos, setActiveHobby } from "../action/hobby";
+import { addNewHobby, getDataAPI, getDataProduct, setActiveHobby } from "../action/hobby";
+import ItemProduct from "../common/ItemProduct";
 
 
 
@@ -16,7 +17,8 @@ function HomePage() {
     const hobbyList = useSelector(state => state.hobby.list)
     const activeId = useSelector(state => state.hobby.actived)
 
-    const testData = useSelector(state => state.hobby.testData)
+    const dataProduct = useSelector(state => state.hobby.dataProduct)
+    const dataList = useSelector(state => state.hobby.dataApi)
 
 
     const dispatch = useDispatch();
@@ -31,27 +33,28 @@ function HomePage() {
 
         dispatch(addNewHobby(newHobby));
         // dispatch(fetchTodos)
+        console.log(hobbyList)
     }
+
+    dispatch(getDataProduct())
+
+    console.log('DATAAAAA: ', dataProduct)
 
     const handleHobbyClick = (hobby) => {
         const action = setActiveHobby(hobby);
         dispatch(action);
     }
 
-    useEffect(() => {
-        console.log('testData: ', testData);
-    }, [testData])
 
     return (
 
-        < div >
-            <h1>Nguyễn Văn Đạt</h1>
-            <button onClick={handleAddHobbyClick} >Click to add Hobby</button>
-            <HobbyList
-                hobbyList={hobbyList}
-                activedID={activeId}
-                onHobbyClick={handleHobbyClick}
-            />
+        < div className="homepage-contain" >
+            {dataProduct?.map((data, key) => {
+                return <ItemProduct
+                    dataProduct={data}
+                />
+            })}
+
         </div >
 
     )
